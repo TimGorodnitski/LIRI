@@ -8,7 +8,7 @@ var spotify = new Spotify(keys.spotify);
 switch (process.argv[2]) {
 
     case "concert-this":
-        let artist = process.argv[3]
+        let artist = process.argv.slice(2).join(" ");
         let bandRequestUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
         request(bandRequestUrl, function (error, meta, body) {
             parsedBody = JSON.parse(body);
@@ -21,7 +21,7 @@ switch (process.argv[2]) {
         break;
 
     case "spotify-this-song":
-        let song = process.argv[3];
+        let song = process.argv.slice(2).join(" ");
 
         spotify
             .search({ type: 'track', query: song }, function (err, data) {
@@ -34,7 +34,7 @@ switch (process.argv[2]) {
         break;
 
     case 'movie-this':
-        let movieName = process.argv[3];
+        let movieName = process.argv.slice(2).join(" ");
 
         let queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
