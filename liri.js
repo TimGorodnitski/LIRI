@@ -6,16 +6,13 @@ var Spotify = require('node-spotify-api');
 var keys = require("./keys.js");
 var spotify = new Spotify(keys.spotify);
 
-
-
-
-
 function liri() {
     switch (process.argv[2]) {
 
         case "concert-this":
             let artist = process.argv.slice(3).join(" ");
             let bandRequestUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
+
             request(bandRequestUrl, function (error, meta, body) {
                 parsedBody = JSON.parse(body);
                 for (i = 0; i < parsedBody.length; i++) {
@@ -36,12 +33,10 @@ function liri() {
                     console.log(data.tracks.items[0].preview_url);
                     console.log(data.tracks.items[0].album.name);
                 });
-
             break;
 
         case 'movie-this':
             let movieName = process.argv.slice(3).join(" ");
-
             let queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
             request(queryUrl, function (error, response, data) {
@@ -56,10 +51,8 @@ function liri() {
                     console.log("Language: " + cleanData.Language);
                     console.log("Plot: " + cleanData.Plot);
                     console.log("Starring: " + cleanData.Actors);
-
                 }
             })
-
             break;
 
         case 'do-what-it-says':
@@ -67,14 +60,12 @@ function liri() {
             process.argv[2] = requestString[0];
             process.argv[3] = requestString[1];
             liri();
-
             break;
 
         case 'default':
             console.log("Sorry, I didn't get that")
             break;
     };
-
 };
 
 liri();
